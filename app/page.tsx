@@ -148,10 +148,11 @@ function SectionHeader({ ornament, title }: { ornament: string; title: string })
 
 // ─── Event Card ───────────────────────────────────────────────────────────────
 
-function EventCard({ tag, title, date, time, venue, hall, mapsUrl, families }: {
+function EventCard({ tag, title, date, time, venue, hall, mapsUrl, families, palette, outfitImages}: {
   tag: string; title: string; date: string; time: string;
-  venue: string; hall: string; mapsUrl: string; families: string;
+  venue: string; hall: string; mapsUrl: string; families: string; palette?: string[]; outfitImages?: string[];
 }) {
+  const [showOutfits, setShowOutfits] = useState(false);
   return (
     <div style={{
       border: "1px solid rgba(196,164,104,0.18)",
@@ -180,6 +181,50 @@ function EventCard({ tag, title, date, time, venue, hall, mapsUrl, families }: {
         <Row label="Venue"     value={venue} />
         <Row label="Reception" value={hall + " · 1:00 PM"} />
         <Row label="Hosted by" value={families} />
+        <PaletteRow colors={palette || []} />
+        <OutfitRow onClick={() => setShowOutfits(true)} />
+        {showOutfits && (
+  <div
+    onClick={() => setShowOutfits(false)}
+    style={{
+      position: "fixed",
+      inset: 0,
+      background: "rgba(0,0,0,0.85)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      zIndex: 999,
+      backdropFilter: "blur(6px)"
+    }}
+  >
+    <div
+      onClick={(e) => e.stopPropagation()}
+      style={{
+        background: "#0B0B0B",
+        border: "1px solid rgba(196,164,104,0.3)",
+        padding: 24,
+        maxWidth: 700,
+        width: "90%",
+        display: "grid",
+        gridTemplateColumns: "repeat(2,1fr)",
+        gap: 12,
+      }}
+    >
+      {outfitImages?.map((img, i) => (
+        <img
+          key={i}
+          src={img}
+          style={{
+            width: "100%",
+            height: "220px",
+            objectFit: "cover",
+            border: "1px solid rgba(196,164,104,0.2)"
+          }}
+        />
+      ))}
+    </div>
+  </div>
+)}
       </div>
       <a
   href={mapsUrl}
@@ -215,6 +260,75 @@ function Row({ label, value }: { label: string; value: string }) {
         <span style={{ fontFamily: "var(--font-cormorant),serif", color: "#c8b99a", fontSize: "clamp(0.9rem,2vw,1.05rem)", lineHeight: 1.5 }}>
           {value}
         </span>
+      </div>
+    </div>
+  );
+}
+
+function PaletteRow({ colors }: { colors: string[] }) {
+  return (
+    <div style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
+      <span style={{ color: "#c4a468", fontSize: 12, marginTop: 2, opacity: 0.7 }}>—</span>
+
+      <div>
+        <span style={{
+          fontFamily: "var(--font-cormorant),serif",
+          color: "rgba(168,144,112,0.6)",
+          fontSize: 10,
+          letterSpacing: "0.3em",
+          textTransform: "uppercase",
+          display: "block",
+          marginBottom: 6,
+        }}>
+          Colour Palette
+        </span>
+
+        <div style={{ display: "flex", gap: 8 }}>
+          {colors.map((c, i) => (
+            <div key={i} style={{
+              width: 18,
+              height: 18,
+              background: c,
+              border: "1px solid rgba(196,164,104,0.3)"
+            }} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function OutfitRow({ onClick }: { onClick: () => void }) {
+  return (
+    <div style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
+      <span style={{ color: "#c4a468", fontSize: 12, marginTop: 2, opacity: 0.7 }}>—</span>
+
+      <div>
+        <span style={{
+          fontFamily: "var(--font-cormorant),serif",
+          color: "rgba(168,144,112,0.6)",
+          fontSize: 10,
+          letterSpacing: "0.3em",
+          textTransform: "uppercase",
+          display: "block",
+          marginBottom: 6,
+        }}>
+          Outfit Inspiration
+        </span>
+
+        <button
+          onClick={onClick}
+          style={{
+            border: "1px solid rgba(196,164,104,0.4)",
+            padding: "6px 10px",
+            background: "transparent",
+            color: "#c4a468",
+            fontSize: 11,
+            cursor: "pointer"
+          }}
+        >
+          View ✦
+        </button>
       </div>
     </div>
   );
@@ -695,7 +809,9 @@ function InnerSite({ visible }: { visible: boolean }) {
               venue="Mar Sleeva Syro-Malabar Church, Cherpunkal"
               hall="Mar Sleeva Parish Hall"
               mapsUrl="https://maps.google.com/?q=Mar+Sleeva+Syro+Malabar+Church+Cherpunkal"
-              families="Davis Joseph & Regimol Thomas"
+              families="Mr. Davis Joseph & Mrs. Regimol Thomas"
+              palette={["#911D48", "#0F1A1F", "#BBA995"]}
+              outfitImages={["/outfit1.jpg","/outfit3.jpg"]}
             />
           </FadeUp>
 
@@ -708,7 +824,9 @@ function InnerSite({ visible }: { visible: boolean }) {
               venue="St. Mary's Orthodox Cathedral, Mavelikkara"
               hall="St. Mary's Orthodox Parish Hall"
               mapsUrl="https://maps.google.com/?q=St+Mary%27s+Orthodox+Cathedral+Mavelikkara"
-              families="Lejo Alex & Prasanthi Varghese"
+              families="Mr. Lejo Alex & Mrs. Prasanthi Varghese"
+              palette={["#F6593C", "#533B37", "#EECC9E"]}
+              outfitImages={["/outfit2.jpg","/outfit4.jpg"]}
             />
           </FadeUp>
         </div>
