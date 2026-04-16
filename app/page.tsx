@@ -231,11 +231,19 @@ function RsvpSection() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem("janoopa_rsvps");
-      if (stored) setRsvps(JSON.parse(stored));
-    } catch {}
-  }, []);
+  const fetchRsvps = async () => {
+    const { data, error } = await supabase.from("rsvps").select("*");
+
+    if (error) {
+      console.error(error);
+      return;
+    }
+
+    setRsvps(data || []);
+  };
+
+  fetchRsvps();
+}, []);
 
   const totalGuests = rsvps.reduce((s, r) => s + r.count, 0);
 
