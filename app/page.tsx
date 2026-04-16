@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import { supabase } from "./lib/supabase";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -238,16 +239,35 @@ function RsvpSection() {
 
   const totalGuests = rsvps.reduce((s, r) => s + r.count, 0);
 
-  const handleSubmit = () => {
-    if (!name.trim()) return setError("Please enter your name.");
-    if (count < 1 || count > 20) return setError("Please enter a valid guest count.");
-    setError("");
-    const entry: RsvpEntry = { name: name.trim(), count, event, timestamp: Date.now() };
-    const updated = [...rsvps, entry];
-    setRsvps(updated);
-    try { localStorage.setItem("janoopa_rsvps", JSON.stringify(updated)); } catch {}
-    setSubmitted(true);
-  };
+  const handleSubmit = async () => {
+  if (!name.trim()) {
+    setError("Please enter your name.");
+    return;
+  }
+
+  if (count < 1 || count > 20) {
+    setError("Please enter a valid guest count.");
+    return;
+  }
+
+  setError("");
+
+  const { error } = await supabase.from("rsvps").insert([
+    {
+      name: name.trim(),
+      count,
+      event,
+    },
+  ]);
+
+  if (error) {
+    console.error(error);
+    setError("Something went wrong. Try again.");
+    return;
+  }
+
+  setSubmitted(true);
+};
 
   const inputStyle: React.CSSProperties = {
     width: "100%",
@@ -648,10 +668,10 @@ function InnerSite({ visible }: { visible: boolean }) {
 
         <div style={{
           display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
+          flexDirection: isMobile ? "column" : "row",  // ← key line
           gap: 28,
           justifyContent: "center",
+          alignItems: isMobile ? "center" : "flex-start",
           width: "100%",
           maxWidth: 1040,
         }}>
