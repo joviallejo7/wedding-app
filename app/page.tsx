@@ -275,6 +275,9 @@ function RsvpSection() {
   }
 
   setSubmitted(true);
+  // Refresh data from DB
+  const { data } = await supabase.from("rsvps").select("*");
+  setRsvps(data || []);
 };
 
   const inputStyle: React.CSSProperties = {
@@ -722,7 +725,7 @@ function InnerSite({ visible }: { visible: boolean }) {
         <p style={{
           fontFamily: "var(--font-cormorant),serif", fontStyle: "italic",
           color: "rgba(168,144,112,0.4)", fontSize: 13, letterSpacing: "0.2em",
-        }}>Jovial &amp; Anoopa · June 29, 2026 · Mavelikkara, Kerala</p>
+        }}>Jovial &amp; Anoopa</p>
       </footer>
     </div>
   );
