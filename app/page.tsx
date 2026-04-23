@@ -810,7 +810,7 @@ function InnerSite({ visible }: { visible: boolean }) {
               hall="Mar Sleeva Parish Hall"
               mapsUrl="https://maps.google.com/?q=Mar+Sleeva+Syro+Malabar+Church+Cherpunkal"
               families="Mr. Davis Joseph & Mrs. Regimol Thomas"
-              palette={["#D29B44", "#BD632B", "#4E5A36","#1C434C"]}
+              palette={["#EDCC9E", "#BD632B", "#8D4423","#4E5A36"]}
               outfitImages={["/outfit1.jpg","/outfit2.jpg","/outfit3.jpg","/outfit4.jpg",]}
             />
           </FadeUp>
