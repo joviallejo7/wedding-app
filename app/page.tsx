@@ -200,6 +200,7 @@ function EventCard({ tag, title, date, time, venue, hall, mapsUrl, families, pal
     <div
       onClick={(e) => e.stopPropagation()}
       style={{
+        position: "relative",
         background: "#0B0B0B",
         border: "1px solid rgba(196,164,104,0.3)",
         padding: 24,
@@ -210,6 +211,22 @@ function EventCard({ tag, title, date, time, venue, hall, mapsUrl, families, pal
         gap: 12,
       }}
     >
+      <button
+  onClick={() => setShowOutfits(false)}
+  style={{
+    position: "absolute",
+    top: 12,
+    right: 16,
+    background: "transparent",
+    border: "none",
+    color: "#c4a468",
+    fontSize: 18,
+    cursor: "pointer",
+    fontFamily: "var(--font-cormorant),serif"
+  }}
+>
+  ✕
+</button>
       {outfitImages?.map((img, i) => (
         <img
           key={i}
@@ -810,7 +827,7 @@ function InnerSite({ visible }: { visible: boolean }) {
               hall="Mar Sleeva Parish Hall"
               mapsUrl="https://maps.google.com/?q=Mar+Sleeva+Syro+Malabar+Church+Cherpunkal"
               families="Mr. Davis Joseph & Mrs. Regimol Thomas"
-              palette={["#EDCC9E", "#BD632B", "#8D4423","#4E5A36"]}
+              palette={[ "#BD632B", "#8D4423","#4E5A36"]}
               outfitImages={["/outfit1.jpg","/outfit2.jpg","/outfit3.jpg","/outfit4.jpg",]}
             />
           </FadeUp>
@@ -825,7 +842,7 @@ function InnerSite({ visible }: { visible: boolean }) {
               hall="St. Mary's Orthodox Parish Hall"
               mapsUrl="https://maps.google.com/?q=St+Mary%27s+Orthodox+Cathedral+Mavelikkara"
               families="Mr. Lejo Alex & Mrs. Prasanthi Varghese"
-              palette={["#EDCC9E", "#836775", "#7A2243","#4B3532"]}
+              palette={["#836775", "#7A2243","#4B3532"]}
               outfitImages={["/outfit5.jpg","/outfit6.jpg","/outfit7.jpg","/outfit8.jpg",]}
             />
           </FadeUp>
