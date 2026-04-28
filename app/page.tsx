@@ -822,7 +822,7 @@ function InnerSite({ visible }: { visible: boolean }) {
               tag="Event 01 · Betrothal"
               title="The Betrothal"
               date="Sunday, 21 June 2026"
-              time="12:30 PM — Ceremony"
+              time="12:00 PM — Ceremony"
               venue="Mar Sleeva Syro-Malabar Church, Cherpunkal"
               hall="Mar Sleeva Parish Hall"
               mapsUrl="https://maps.google.com/?q=Mar+Sleeva+Syro+Malabar+Church+Cherpunkal"
