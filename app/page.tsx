@@ -531,16 +531,51 @@ function RsvpSection() {
               display: "block",
               marginBottom: 8,
             }}>Number of Guests</label>
-            <input
-              type="number"
-              min={1}
-              max={20}
-              value={count}
-              onChange={e => setCount(Math.max(1, parseInt(e.target.value) || 1))}
-              style={inputStyle}
-              onFocus={e => e.currentTarget.style.borderColor = "rgba(196,164,104,0.6)"}
-              onBlur={e => e.currentTarget.style.borderColor = "rgba(196,164,104,0.2)"}
-            />
+            <div
+  style={{
+    display: "flex",
+    alignItems: "center",
+    border: "1px solid rgba(196,164,104,0.2)",
+    padding: "10px 14px",
+    justifyContent: "space-between"
+  }}
+>
+  <button
+    onClick={() => setCount(Math.max(1, count - 1))}
+    style={{
+      background: "transparent",
+      border: "none",
+      color: "#c4a468",
+      fontSize: 20,
+      cursor: "pointer"
+    }}
+  >
+    –
+  </button>
+
+  <span
+    style={{
+      color: "#e8dfc8",
+      fontSize: 18,
+      fontFamily: "var(--font-playfair)"
+    }}
+  >
+    {count}
+  </span>
+
+  <button
+    onClick={() => setCount(count + 1)}
+    style={{
+      background: "transparent",
+      border: "none",
+      color: "#c4a468",
+      fontSize: 20,
+      cursor: "pointer"
+    }}
+  >
+    +
+  </button>
+</div>
           </div>
 
           <div>
